@@ -15,7 +15,7 @@ public class CartaComodin extends Carta {
 
     @Override
     public String toString() {
-        File file = new File("src/assets-1/+4.txt");
+        File file = new File("src/assets-1/"+getValor()+".txt");
         String carta = "";
         try {
             FileReader fileReader = new FileReader(file);
