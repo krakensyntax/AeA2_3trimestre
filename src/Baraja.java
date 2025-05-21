@@ -47,17 +47,26 @@ public class Baraja {
     public void barajar(){
         Collections.shuffle(cartas);
     }
-    //public Carta robarCarta(){
-
-    //}
+    public Carta robarCarta(){
+        if (cartas.isEmpty()){
+            return null;
+        }else {
+            Carta carta_sacar = cartas.get(0);
+            cartas.remove(0);
+            return carta_sacar;
+        }
+    }
     public ArrayList<Carta> getCartas(){
         return cartas;
     }
 
     @Override
     public String toString() {
-        return "Baraja[" +
-                "cartas=" + cartas +
-                ']';
+        String carta = "";
+        for (Carta carta2:cartas){
+            carta += carta2;
+            carta += "\n";
+        }
+        return carta;
     }
 }

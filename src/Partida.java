@@ -40,7 +40,18 @@ public class Partida {
     }
 
     public void iniciarPartida(){
+        mazo.barajar();
+        Carta carta = mazo.robarCarta();
 
+        if (carta instanceof CartaComodin){
+            mazo.getCartas().add(carta);
+
+        }
+        while (!(mazo.robarCarta() instanceof CartaNumero) || !(mazo.robarCarta() instanceof CartaEspecial)){
+            mazo.barajar();
+        }
+        mazo.getCartas().remove(carta);
+        descarte.getCartas().add(carta);
     }
     private void reponerDescarte(){
 

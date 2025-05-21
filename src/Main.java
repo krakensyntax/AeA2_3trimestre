@@ -6,7 +6,13 @@ public class Main {
 
         baraja.generarBaraja();
 
+        
+        System.out.println(baraja.getCartas().get(0));
+        baraja.robarCarta();
         System.out.println(baraja);
-        System.out.println(baraja.getCartas().size());
+
+        Jugador jugador = new Jugador("serhii");
+
+
     }
 }
