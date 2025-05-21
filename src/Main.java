@@ -13,6 +13,7 @@ public class Main {
 
         Jugador jugador = new Jugador("serhii");
 
+        System.out.println(baraja.getCartas().get(0).toString());
 
     }
 }

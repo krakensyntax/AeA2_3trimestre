@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Partida {
     private ArrayList<Jugador> jugadores;
@@ -54,7 +55,10 @@ public class Partida {
         descarte.getCartas().add(carta);
     }
     private void reponerDescarte(){
-
+        if (mazo.getCartas().isEmpty()){
+            mazo=descarte;
+            mazo.barajar();
+        }
     }
     private void cambiarTurno(){
 
@@ -65,15 +69,37 @@ public class Partida {
 //    public Jugador getSiguienteJugador(){
 //
 //    }
-//    private boolean esCartaValida(Carta carta){
-//
-//    }
-    public void turno(){
+    private boolean esCartaValida(Carta carta){
+        if (descarte.getCartas().isEmpty()){
+            return true;
+        } else if (carta instanceof CartaComodin){
+            return true;
+        } else if (carta.getColor().equals(descarte.getCartas().get(0).getColor())) {
+            return true;
+        } else if (carta.getValor().equals(descarte.getCartas().get(0).getValor())) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
-//    public boolean verificarVictoria(){
-//
-//    }
+    public void turno(){
+        getTurno();
+        jugadores.get(turno).getNombre();
+        jugadores.get(turno).getIdJugador();
+        descarte.getCartas().get(0).toString();
+
+    }
+    public boolean verificarVictoria(){
+        boolean ganador = false;
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getMano().isEmpty()){
+                System.out.println("ha ganado");
+                ganador = true;
+            }
+        }
+        return ganador;
+    }
 
 
 
