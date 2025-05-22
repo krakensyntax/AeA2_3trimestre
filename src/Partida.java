@@ -61,6 +61,13 @@ public class Partida {
         }
     }
     private void cambiarTurno(){
+        int contador_turno = 0;
+        while (sentido){
+            contador_turno += 1;
+            turno = Math.floorMod(contador_turno, jugadores.size());
+        }
+
+
 
     }
     public void saltarTurno(){
