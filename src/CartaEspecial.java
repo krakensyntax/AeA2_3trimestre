@@ -7,8 +7,20 @@ public class CartaEspecial extends Carta implements Colorable {
         super(color, valor);
     }
     public void aplicarEfecto(Partida partida){
-        partida.saltarTurno();
-        partida.setSentido(false);
+        if (partida.getDescarte().getCartas().get(0).getValor().equals("+2")){
+            for (int i = 0; i < 2; i++) {
+                partida.getSiguienteJugador().getMano().add(partida.getMazo().getCartas().get(i));
+            }
+        } else if (partida.getDescarte().getCartas().get(0).getValor().equals("jumpTurn")) {
+            partida.saltarTurno();
+
+        } else if (partida.getDescarte().getCartas().get(0).getValor().equals("changeDirection")) {
+            if (partida.isSentido()){
+                partida.setSentido(false);
+            }else {
+                partida.setSentido(true);
+            }
+        }
 
     }
 

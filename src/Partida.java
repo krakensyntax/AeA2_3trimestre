@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Partida {
+    Scanner scanner = new Scanner(System.in);
     private ArrayList<Jugador> jugadores;
     private Baraja mazo;
     private Baraja descarte;
@@ -41,41 +43,53 @@ public class Partida {
     }
 
     public void iniciarPartida(){
-        mazo.barajar();
-        Carta carta = mazo.robarCarta();
-
-        if (carta instanceof CartaComodin){
-            mazo.getCartas().add(carta);
-
-        }
-        while (!(mazo.robarCarta() instanceof CartaNumero) || !(mazo.robarCarta() instanceof CartaEspecial)){
+        for (int i = 0; i < 5; i++) {
             mazo.barajar();
         }
+
+        Carta carta;
+        do {
+
+            carta = mazo.robarCarta();
+            mazo.getCartas().add(carta);
+            mazo.barajar();
+
+        }while(carta instanceof CartaComodin);
+
         mazo.getCartas().remove(carta);
         descarte.getCartas().add(carta);
     }
     private void reponerDescarte(){
         if (mazo.getCartas().isEmpty()){
-            mazo=descarte;
+            mazo.getCartas().addAll(descarte.getCartas());
+            descarte.getCartas().clear();
             mazo.barajar();
         }
     }
     private void cambiarTurno(){
-        int contador_turno = 0;
-        while (sentido){
-            contador_turno += 1;
-            turno = Math.floorMod(contador_turno, jugadores.size());
+
+        if (sentido){
+            turno = Math.floorMod(turno+1, jugadores.size());
+        } else {
+            turno = Math.floorMod(turno-1, jugadores.size());
         }
 
 
 
     }
     public void saltarTurno(){
-
+        cambiarTurno();
+        cambiarTurno();
     }
-//    public Jugador getSiguienteJugador(){
-//
-//    }
+    public Jugador getSiguienteJugador(){
+        int nextplayer;
+        if (sentido){
+            nextplayer = Math.floorMod(turno+1, jugadores.size());
+        } else {
+            nextplayer = Math.floorMod(turno-1, jugadores.size());
+        }
+        return jugadores.get(nextplayer);
+    }
     private boolean esCartaValida(Carta carta){
         if (descarte.getCartas().isEmpty()){
             return true;
@@ -91,10 +105,51 @@ public class Partida {
 
     }
     public void turno(){
-        getTurno();
-        jugadores.get(turno).getNombre();
-        jugadores.get(turno).getIdJugador();
-        descarte.getCartas().get(0).toString();
+
+        System.out.println("El nombre del jugador: "+ jugadores.get(turno).getNombre()+" y su ID: "+jugadores.get(turno).getIdJugador());
+        System.out.println(descarte.getCartas().get(0));
+        jugadores.get(turno).mostrarEstado();
+
+        System.out.println("Accion por realizar: (1-robar carta del mazo/2-jugar carta de la mano)");
+
+        int accionRealizar = scanner.nextInt();
+        do {
+            if (accionRealizar==1){
+
+                if (mazo.getCartas().isEmpty()){
+                    reponerDescarte();
+                }
+                Carta cartaDeRobar = mazo.robarCarta();
+                jugadores.get(turno).getMano().add(cartaDeRobar);
+                cambiarTurno();
+                break;
+
+
+            }else if (accionRealizar==2){
+                System.out.println("Indica el numero de carta que quiere ponel: ");
+                int cartaJugar = scanner.nextInt();
+                if (cartaJugar >= 0 && cartaJugar < jugadores.get(turno).getMano().size()){
+                    Carta cartaJugar2 = jugadores.get(turno).getMano().get(cartaJugar);
+                    if (esCartaValida(cartaJugar2)){
+                        jugadores.get(turno).jugarCarta(cartaJugar2,this);
+                        cambiarTurno();
+                        break;
+                    }else {
+                        System.out.println("Carta no es valida vuelve a poner otra carta valida!");
+
+                    }
+
+
+                }else {
+                    System.out.println("numero no es valido");
+                }
+
+            }else {
+                System.out.println("Vuelve a intentar lo");
+            }
+
+        }while(accionRealizar!=1 && accionRealizar !=2);
+
 
     }
     public boolean verificarVictoria(){

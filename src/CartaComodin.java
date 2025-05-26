@@ -10,7 +10,12 @@ public class CartaComodin extends Carta {
         super.setColor(color);
     }
     public void aplicarEfecto(Partida partida){
+        if (partida.getDescarte().getCartas().get(0).getValor().equals("+4")){
+            for (int i = 0; i < 4; i++) {
+                partida.getSiguienteJugador().getMano().add(partida.getMazo().getCartas().get(i));
 
+            }
+        }
     }
 
     @Override

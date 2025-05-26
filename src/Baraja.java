@@ -18,25 +18,25 @@ public class Baraja {
 
 
         for (int i = 0; i < 2; i++) {
-            cartas.add(new CartaNumero(Carta.AMARILLO,"+2"));
-            cartas.add(new CartaNumero(Carta.AZUL,"+2"));
-            cartas.add(new CartaNumero(Carta.ROJO,"+2"));
-            cartas.add(new CartaNumero(Carta.VERDE,"+2"));
+            cartas.add(new CartaEspecial(Carta.AMARILLO,"+2"));
+            cartas.add(new CartaEspecial(Carta.AZUL,"+2"));
+            cartas.add(new CartaEspecial(Carta.ROJO,"+2"));
+            cartas.add(new CartaEspecial(Carta.VERDE,"+2"));
 
-            cartas.add(new CartaNumero(Carta.AMARILLO,"changeDirection"));
-            cartas.add(new CartaNumero(Carta.AZUL,"changeDirection"));
-            cartas.add(new CartaNumero(Carta.ROJO,"changeDirection"));
-            cartas.add(new CartaNumero(Carta.VERDE,"changeDirection"));
+            cartas.add(new CartaEspecial(Carta.AMARILLO,"changeDirection"));
+            cartas.add(new CartaEspecial(Carta.AZUL,"changeDirection"));
+            cartas.add(new CartaEspecial(Carta.ROJO,"changeDirection"));
+            cartas.add(new CartaEspecial(Carta.VERDE,"changeDirection"));
 
-            cartas.add(new CartaNumero(Carta.AMARILLO,"jumpTurn"));
-            cartas.add(new CartaNumero(Carta.AZUL,"jumpTurn"));
-            cartas.add(new CartaNumero(Carta.ROJO,"jumpTurn"));
-            cartas.add(new CartaNumero(Carta.VERDE,"jumpTurn"));
+            cartas.add(new CartaEspecial(Carta.AMARILLO,"jumpTurn"));
+            cartas.add(new CartaEspecial(Carta.AZUL,"jumpTurn"));
+            cartas.add(new CartaEspecial(Carta.ROJO,"jumpTurn"));
+            cartas.add(new CartaEspecial(Carta.VERDE,"jumpTurn"));
         }
 
         for (int i = 0; i < 4; i++) {
-            cartas.add(new CartaNumero(Carta.NEGRO,"+4"));
-            cartas.add(new CartaNumero(Carta.NEGRO,"changeColor"));
+            cartas.add(new CartaComodin(Carta.NEGRO,"+4"));
+            cartas.add(new CartaComodin(Carta.NEGRO,"changeColor"));
         }
 
 
